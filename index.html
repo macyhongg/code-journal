@@ -16,26 +16,47 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
+  <header class="row purple-bg">
+    <div class="column-full">
+      <h2 class="white-text">Code Journal</h2>
+    </div>
   </header>
   <main>
+    <div class="row">
+      <div class="column-full">
+        <h1>New Entry</h1>
+      </div>
+    </div>
     <div data-view="entry-form">
       <form action="">
-        <h1>New Entry</h1>
-        <div>Picture</div>
-        <div>
-          <label for="title">Title</label>
-          <input type="text" id="title" name="title">
+        <div class="row">
+          <div class="column-half">
+            <img src="images/placeholder-image-square.jpg" alt="">
+          </div>
+          <div class="column-half">
+            <label for="title">Title</label>
+            <div>
+              <input type="text" id="title" class="full-width">
+            </div>
+            <label for="photoURL">Photo URL</label>
+            <div>
+              <input type="text" id="photoURL" class="full-width">
+            </div>
+          </div>
         </div>
-        <div>
-          <label for="photoURL">Photo URL</label>
-          <input type="text" id="photoURL" name="photoURL">
+        <div class="row">
+          <div class="column-full">
+            <label for="Notes">Notes</label>
+            <div>
+              <input type="text" id="notes" class="full-width larger-textbox">
+            </div>
+          </div>
         </div>
-        <div>
-          <label for="Notes">Notes</label>
-          <input type="text" id="notes" name="notes">
+        <div class="row">
+          <div class="column-full align-right">
+            <button type="submit" value="Submit">Save</button>
+          </div>
         </div>
-        <input type="submit" name="submit" value="submit">
       </form>
     </div>
   </main>
