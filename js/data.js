@@ -11,8 +11,8 @@ var data = {
 window.addEventListener('beforeunload', store);
 
 function store(event) {
-  var entriesJSON = JSON.stringify(data.entries);
-  localStorage.setItem('local-journal', entriesJSON);
+  var dataJSON = JSON.stringify(data);
+  localStorage.setItem('local-journal', dataJSON);
 }
 
 var previousEntriesJSON = localStorage.getItem('local-journal');
