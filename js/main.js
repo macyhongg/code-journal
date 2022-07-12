@@ -1,3 +1,4 @@
+// Input events on photoURL
 var $photoURL = document.querySelector('#photoURL');
 var $photosrc = document.querySelector('img');
 
@@ -6,8 +7,7 @@ $photoURL.addEventListener('change', function changeURL(event) {
   $photosrc.setAttribute('src', $photoInput);
 });
 
-// var $submit = document.querySelector('#submit');
-
+// Submit events
 var $form = document.querySelector('form');
 $form.addEventListener('submit', logSubmit);
 
