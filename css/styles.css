@@ -1,0 +1,48 @@
+header {
+  padding-left: 1rem;
+}
+
+body {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background-color: #ecebec;
+}
+
+main {
+  margin: 1.5rem;
+}
+
+button {
+  background-color: #4c2373;
+  color: white;
+  text-transform: uppercase;
+  border: #4c2373;
+  border-radius: 7px;
+  padding: 10px 20px;
+}
+
+img {
+  max-width: 100%;
+  padding-bottom: 1rem;
+}
+
+/* Input */
+
+input {
+  margin: 10px 0;
+  padding: 5px 0;
+}
+
+input:focus {
+  border: 3px solid #4c2373;
+  outline: none;
+}
+
+/* Background and text colors */
+
+.purple-bg {
+  background-color: #4c2373;
+}
+
+.white-text {
+  color: white;
+}
