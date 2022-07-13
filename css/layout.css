@@ -37,6 +37,14 @@
   margin-bottom: 2rem;
 }
 
+.margin-right {
+  margin-right: 1rem;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
 /* Responsive layout  */
 
 @media screen and (min-width: 768px) {

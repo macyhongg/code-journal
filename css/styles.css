@@ -37,7 +37,7 @@ input:focus {
   outline: none;
 }
 
-/* Background and text colors */
+/* Background, font, text styles */
 
 .purple-bg {
   background-color: #4c2373;
@@ -52,4 +52,10 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* Nav Bar */
+
+a {
+  text-decoration: none;
 }
