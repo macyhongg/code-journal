@@ -46,3 +46,10 @@ input:focus {
 .white-text {
   color: white;
 }
+
+/* List styling */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
