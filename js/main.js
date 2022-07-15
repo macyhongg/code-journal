@@ -1,11 +1,14 @@
+// Queried variables
 var $photoURL = document.querySelector('#photoURL');
 var $photosrc = document.querySelector('img');
 var $ul = document.querySelector('ul');
 var entries = data.entries;
 var $form = document.querySelector('form');
-var $navEntries = document.querySelector('.navEntries');
+var $navMain = document.querySelector('.navMain');
 var $entryForm = document.getElementById('entry-form');
+var $navEntries = document.querySelector('.navEntries');
 var $entries = document.getElementById('entries');
+var $views = document.querySelectorAll('.view');
 
 // Updates the image from photoURL
 $photoURL.addEventListener('change', function changeURL(event) {
@@ -13,16 +16,31 @@ $photoURL.addEventListener('change', function changeURL(event) {
   $photosrc.setAttribute('src', $photoInput);
 });
 
-// Shows the entry form
+// Views
 function entriesView(event) {
   $entryForm.className = 'hidden';
   $entries.classList.remove('hidden');
+  data.view = 'entries';
 }
 
-$navEntries.addEventListener('click', entriesView);
+function entryformView(event) {
+  $entries.className = 'hidden';
+  $entryForm.classList.remove('hidden');
+  data.view = 'entry-form';
+}
+
+function showView(targetView) {
+  for (let i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-view') === targetView) {
+      $views[i].className = 'view';
+      data.view = targetView;
+    } else {
+      $views[i].className = 'view hidden';
+    }
+  }
+}
 
 // Submit new entry
-$form.addEventListener('submit', logSubmit);
 
 function logSubmit(event) {
   event.preventDefault();
@@ -68,7 +86,14 @@ function renderEntry(entry) {
   return newLi;
 }
 
-for (let i = 0; i < entries.length; i++) {
-  var newEntry = renderEntry(entries[i]);
-  $ul.appendChild(newEntry);
-}
+// Event Listeners
+$navEntries.addEventListener('click', entriesView);
+$navMain.addEventListener('click', entryformView);
+$form.addEventListener('submit', logSubmit);
+document.addEventListener('DOMContentLoaded', function (event) {
+  for (let i = 0; i < entries.length; i++) {
+    var newEntry = renderEntry(entries[i]);
+    $ul.appendChild(newEntry);
+  }
+  showView(data.view);
+});
