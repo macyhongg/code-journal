@@ -59,3 +59,7 @@ ul {
 a {
   text-decoration: none;
 }
+
+h2:hover {
+  cursor: pointer;
+}
