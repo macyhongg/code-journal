@@ -2,7 +2,7 @@
 var $photoURL = document.querySelector('#photoURL');
 var $photosrc = document.querySelector('img');
 var $ul = document.querySelector('ul');
-var entries = data.entries;
+// var entries = data.entries;
 var $form = document.querySelector('form');
 var $navMain = document.querySelector('.navMain');
 var $entryForm = document.getElementById('entry-form');
@@ -51,10 +51,13 @@ function logSubmit(event) {
     entryId: data.nextEntryId
   };
   data.nextEntryId++;
-  entries.unshift(entry);
+  data.entries.unshift(entry);
 
   $form.reset();
   $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+  var currentEntry = renderEntry(entry);
+  $ul.prepend(currentEntry);
   entriesView();
 }
 
@@ -91,8 +94,8 @@ $navEntries.addEventListener('click', entriesView);
 $navMain.addEventListener('click', entryformView);
 $form.addEventListener('submit', logSubmit);
 document.addEventListener('DOMContentLoaded', function (event) {
-  for (let i = 0; i < entries.length; i++) {
-    var newEntry = renderEntry(entries[i]);
+  for (let i = 0; i < data.entries.length; i++) {
+    var newEntry = renderEntry(data.entries[i]);
     $ul.appendChild(newEntry);
   }
   showView(data.view);
