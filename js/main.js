@@ -2,7 +2,6 @@
 var $photoURL = document.querySelector('#photoURL');
 var $photosrc = document.querySelector('img');
 var $ul = document.querySelector('ul');
-// var entries = data.entries;
 var $form = document.querySelector('form');
 var $navMain = document.querySelector('.navMain');
 var $entryForm = document.getElementById('entry-form');
@@ -73,9 +72,18 @@ function renderEntry(entry) {
   var newSection = document.createElement('section');
   newSection.className = 'column-half';
 
+  var newRow = document.createElement('div');
+  newRow.className = 'row';
+
+  var newColHalf2 = document.createElement('div');
+  newColHalf2.className = 'column-half align-center';
+
   var newTitle = document.createElement('h2');
   var titleText = document.createTextNode(entry.title);
   newTitle.appendChild(titleText);
+
+  var newPencil = document.createElement('i');
+  newPencil.className = 'fa fa-pencil pencil align-center';
 
   var newNotes = document.createElement('p');
   var notesText = document.createTextNode(entry.notes);
@@ -83,7 +91,9 @@ function renderEntry(entry) {
 
   newLi.appendChild(newImg);
   newLi.appendChild(newSection);
-  newSection.appendChild(newTitle);
+  newSection.appendChild(newRow);
+  newRow.appendChild(newTitle);
+  newRow.appendChild(newPencil);
   newSection.appendChild(newNotes);
 
   return newLi;
