@@ -4,8 +4,8 @@ var $photosrc = document.querySelector('img');
 var $ul = document.querySelector('ul');
 var $form = document.querySelector('form');
 var $navMain = document.querySelector('.navMain');
-var $entryForm = document.getElementById('entry-form');
 var $navEntries = document.querySelector('.navEntries');
+var $entryForm = document.getElementById('entry-form');
 var $entries = document.getElementById('entries');
 var $views = document.querySelectorAll('.view');
 
@@ -110,3 +110,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
   }
   showView(data.view);
 });
+
+// Listen for edit clicks
+$ul.addEventListener('click', edit);
+
+function edit(e) {
+  if (e.target.nodeName === 'I') {
+    entryformView();
+  }
+}
