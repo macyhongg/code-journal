@@ -18,5 +18,5 @@ function store(event) {
 var previousEntriesJSON = localStorage.getItem('local-journal');
 
 if (previousEntriesJSON != null) {
-  data.entries = JSON.parse(previousEntriesJSON);
+  data = JSON.parse(previousEntriesJSON);
 }

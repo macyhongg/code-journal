@@ -18,16 +18,17 @@
 <body>
   <header class="row purple-bg">
     <div class="column-full">
-      <h2 class="white-text">Code Journal</h2>
+      <h2 class="navMain white-text inline-block margin-right">Code Journal</h2>
+      <a href="#entries" class="navEntries white-text inline-block margin-right"><h3>Entries</h3></a>
     </div>
   </header>
   <main>
-    <div class="row">
-      <div class="column-full">
-        <h1>New Entry</h1>
+    <div data-view="entry-form" class="view" id="entry-form">
+      <div class="row">
+        <div class="column-full">
+          <h1>New Entry</h1>
+        </div>
       </div>
-    </div>
-    <div data-view="entry-form">
       <form action="">
         <div class="row">
           <div class="column-half">
@@ -58,6 +59,19 @@
           </div>
         </div>
       </form>
+    </div>
+
+    <!-- Entries  -->
+    <div data-view="entries" id="entries" class="view hidden">
+      <div class="container">
+        <div class="row">
+          <div class="column-full">
+            <h1>Entries</h1>
+          </div>
+        </div>
+        <ul>
+        </ul>
+      </div>
     </div>
   </main>
   <script src="js/data.js"></script>
