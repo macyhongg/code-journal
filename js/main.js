@@ -1,5 +1,8 @@
 // Queried variables
+var $heading = document.querySelector('h1');
+var $title = document.getElementById('title');
 var $photoURL = document.querySelector('#photoURL');
+var $notes = document.getElementById('notes');
 var $photosrc = document.querySelector('img');
 var $ul = document.querySelector('ul');
 var $form = document.querySelector('form');
@@ -125,4 +128,10 @@ function edit(e) {
     }
   }
   entryformView();
+
+  // Populate entry form w/ clicked entry's values
+  $heading.childNodes[0].nodeValue = 'Edit Entry';
+  $title.value = data.editing.title;
+  $photoURL.value = data.editing.photoURL;
+  $notes.value = data.editing.notes;
 }
