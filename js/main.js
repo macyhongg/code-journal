@@ -84,6 +84,7 @@ function renderEntry(entry) {
 
   var newPencil = document.createElement('i');
   newPencil.className = 'fa fa-pencil pencil align-center';
+  newPencil.setAttribute('data-entry-id', entry.entryId);
 
   var newNotes = document.createElement('p');
   var notesText = document.createTextNode(entry.notes);
@@ -111,11 +112,17 @@ document.addEventListener('DOMContentLoaded', function (event) {
   showView(data.view);
 });
 
-// Listen for edit clicks
+// Editing
 $ul.addEventListener('click', edit);
 
 function edit(e) {
+  var targetid = e.target.getAttribute('data-entry-id');
   if (e.target.nodeName === 'I') {
-    entryformView();
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === parseInt(targetid)) {
+        data.editing = data.entries[i];
+      }
+    }
   }
+  entryformView();
 }
