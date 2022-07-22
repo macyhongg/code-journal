@@ -18,19 +18,17 @@ $photoURL.addEventListener('change', function changeURL(event) {
   $photosrc.setAttribute('src', $photoInput);
 });
 
-// Views
+// View swapping
 function entriesView(event) {
   $entryForm.className = 'hidden';
   $entries.classList.remove('hidden');
   data.view = 'entries';
 }
-
 function entryformView(event) {
   $entries.className = 'hidden';
   $entryForm.classList.remove('hidden');
   data.view = 'entry-form';
 }
-
 function showView(targetView) {
   for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-view') === targetView) {
@@ -43,23 +41,38 @@ function showView(targetView) {
 }
 
 // Submit new entry
-
 function logSubmit(event) {
   event.preventDefault();
-  var entry = {
-    title: $form.elements.title.value,
-    photoURL: $form.elements.photoURL.value,
-    notes: $form.elements.notes.value,
-    entryId: data.nextEntryId
-  };
-  data.nextEntryId++;
-  data.entries.unshift(entry);
+  if (data.editing === null) {
+    var entry = {
+      title: $form.elements.title.value,
+      photoURL: $form.elements.photoURL.value,
+      notes: $form.elements.notes.value,
+      entryId: data.nextEntryId
+    };
+    data.nextEntryId++;
+    data.entries.unshift(entry);
 
+    // $form.reset();
+    // $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+    var newEntry = renderEntry(entry);
+    $ul.prepend(newEntry);
+  } else {
+    var edited = {
+      title: $title.value,
+      photoURL: $photoURL.value,
+      notes: $notes.value,
+      entryId: data.editing.entryId
+    };
+
+    data.entries[data.editing.entryId] = edited;
+    var editEntry = renderEntry(edited);
+    var oldEntry = $ul.childNodes[data.editing.entryId];
+    $ul.replaceChild(editEntry, oldEntry);
+  }
   $form.reset();
   $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
-
-  var currentEntry = renderEntry(entry);
-  $ul.prepend(currentEntry);
   entriesView();
 }
 
