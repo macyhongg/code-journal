@@ -40,7 +40,28 @@ function showView(targetView) {
   }
 }
 
-// Submit or Edit, then Render Entry
+// Editing
+$ul.addEventListener('click', edit);
+
+function edit(e) {
+  var targetid = e.target.getAttribute('data-entry-id');
+  if (e.target.nodeName === 'I') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === parseInt(targetid)) {
+        data.editing = data.entries[i];
+      }
+    }
+  }
+  $heading.childNodes[0].nodeValue = 'Edit Entry';
+  $title.value = data.editing.title;
+  $photoURL.value = data.editing.photoURL;
+  $photosrc.setAttribute('src', data.editing.photoURL);
+  $notes.value = data.editing.notes;
+
+  entryformView();
+}
+
+// Render new or edited entry
 function logSubmit(event) {
   event.preventDefault();
   if (data.editing === null) {
@@ -64,10 +85,14 @@ function logSubmit(event) {
       entryId: data.editing.entryId
     };
 
-    data.entries[data.editing.entryId] = edited;
-    var editEntry = renderEntry(edited);
-    var oldEntry = $ul.childNodes[data.editing.entryId];
-    $ul.replaceChild(editEntry, oldEntry);
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === parseInt(data.editing.entryId)) {
+        data.entries[i] = edited;
+        var editEntry = renderEntry(data.entries[i]);
+        var oldEntry = $ul.children[i];
+      }
+    }
+    oldEntry.replaceWith(editEntry);
   }
   $form.reset();
   $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
@@ -125,24 +150,3 @@ document.addEventListener('DOMContentLoaded', function (event) {
   }
   showView(data.view);
 });
-
-// Editing
-$ul.addEventListener('click', edit);
-
-function edit(e) {
-  var targetid = e.target.getAttribute('data-entry-id');
-  if (e.target.nodeName === 'I') {
-    for (let i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].entryId === parseInt(targetid)) {
-        data.editing = data.entries[i];
-      }
-    }
-  }
-  $heading.childNodes[0].nodeValue = 'Edit Entry';
-  $title.value = data.editing.title;
-  $photoURL.value = data.editing.photoURL;
-  $photosrc.setAttribute('src', data.editing.photoURL);
-  $notes.value = data.editing.notes;
-
-  entryformView();
-}
