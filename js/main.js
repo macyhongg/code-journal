@@ -1,12 +1,14 @@
 // Queried variables
+var $heading = document.querySelector('h1');
+var $title = document.getElementById('title');
 var $photoURL = document.querySelector('#photoURL');
+var $notes = document.getElementById('notes');
 var $photosrc = document.querySelector('img');
 var $ul = document.querySelector('ul');
-// var entries = data.entries;
 var $form = document.querySelector('form');
 var $navMain = document.querySelector('.navMain');
-var $entryForm = document.getElementById('entry-form');
 var $navEntries = document.querySelector('.navEntries');
+var $entryForm = document.getElementById('entry-form');
 var $entries = document.getElementById('entries');
 var $views = document.querySelectorAll('.view');
 
@@ -16,19 +18,17 @@ $photoURL.addEventListener('change', function changeURL(event) {
   $photosrc.setAttribute('src', $photoInput);
 });
 
-// Views
+// View swapping
 function entriesView(event) {
   $entryForm.className = 'hidden';
   $entries.classList.remove('hidden');
   data.view = 'entries';
 }
-
 function entryformView(event) {
   $entries.className = 'hidden';
   $entryForm.classList.remove('hidden');
   data.view = 'entry-form';
 }
-
 function showView(targetView) {
   for (let i = 0; i < $views.length; i++) {
     if ($views[i].getAttribute('data-view') === targetView) {
@@ -40,24 +40,62 @@ function showView(targetView) {
   }
 }
 
-// Submit new entry
+// Editing
+$ul.addEventListener('click', edit);
 
+function edit(e) {
+  var targetid = e.target.getAttribute('data-entry-id');
+  if (e.target.nodeName === 'I') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === parseInt(targetid)) {
+        data.editing = data.entries[i];
+      }
+    }
+  }
+  $heading.childNodes[0].nodeValue = 'Edit Entry';
+  $title.value = data.editing.title;
+  $photoURL.value = data.editing.photoURL;
+  $photosrc.setAttribute('src', data.editing.photoURL);
+  $notes.value = data.editing.notes;
+
+  entryformView();
+}
+
+// Render new or edited entry
 function logSubmit(event) {
   event.preventDefault();
-  var entry = {
-    title: $form.elements.title.value,
-    photoURL: $form.elements.photoURL.value,
-    notes: $form.elements.notes.value,
-    entryId: data.nextEntryId
-  };
-  data.nextEntryId++;
-  data.entries.unshift(entry);
+  if (data.editing === null) {
+    var entry = {
+      title: $form.elements.title.value,
+      photoURL: $form.elements.photoURL.value,
+      notes: $form.elements.notes.value,
+      entryId: data.nextEntryId
+    };
 
+    data.nextEntryId++;
+    data.entries.unshift(entry);
+    var newEntry = renderEntry(entry);
+    $ul.prepend(newEntry);
+
+  } else {
+    var edited = {
+      title: $title.value,
+      photoURL: $photoURL.value,
+      notes: $notes.value,
+      entryId: data.editing.entryId
+    };
+
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === parseInt(data.editing.entryId)) {
+        data.entries[i] = edited;
+        var editEntry = renderEntry(data.entries[i]);
+        var oldEntry = $ul.children[i];
+      }
+    }
+    oldEntry.replaceWith(editEntry);
+  }
   $form.reset();
   $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
-
-  var currentEntry = renderEntry(entry);
-  $ul.prepend(currentEntry);
   entriesView();
 }
 
@@ -73,9 +111,19 @@ function renderEntry(entry) {
   var newSection = document.createElement('section');
   newSection.className = 'column-half';
 
+  var newRow = document.createElement('div');
+  newRow.className = 'row';
+
+  var newColHalf2 = document.createElement('div');
+  newColHalf2.className = 'column-half align-center';
+
   var newTitle = document.createElement('h2');
   var titleText = document.createTextNode(entry.title);
   newTitle.appendChild(titleText);
+
+  var newPencil = document.createElement('i');
+  newPencil.className = 'fa fa-pencil pencil align-center';
+  newPencil.setAttribute('data-entry-id', entry.entryId);
 
   var newNotes = document.createElement('p');
   var notesText = document.createTextNode(entry.notes);
@@ -83,7 +131,9 @@ function renderEntry(entry) {
 
   newLi.appendChild(newImg);
   newLi.appendChild(newSection);
-  newSection.appendChild(newTitle);
+  newSection.appendChild(newRow);
+  newRow.appendChild(newTitle);
+  newRow.appendChild(newPencil);
   newSection.appendChild(newNotes);
 
   return newLi;

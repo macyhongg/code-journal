@@ -63,3 +63,10 @@ a {
 h2:hover {
   cursor: pointer;
 }
+
+/* Editing */
+.pencil {
+  font-size: 24px;
+  color: #4c2373;
+  margin-left: 14rem;
+}
