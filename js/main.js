@@ -138,10 +138,11 @@ function edit(e) {
       }
     }
   }
-  entryformView();
-
   $heading.childNodes[0].nodeValue = 'Edit Entry';
   $title.value = data.editing.title;
   $photoURL.value = data.editing.photoURL;
+  $photosrc.setAttribute('src', data.editing.photoURL);
   $notes.value = data.editing.notes;
+
+  entryformView();
 }
