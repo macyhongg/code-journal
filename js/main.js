@@ -40,7 +40,7 @@ function showView(targetView) {
   }
 }
 
-// Submit new entry
+// Submit or Edit, then Render Entry
 function logSubmit(event) {
   event.preventDefault();
   if (data.editing === null) {
@@ -50,14 +50,12 @@ function logSubmit(event) {
       notes: $form.elements.notes.value,
       entryId: data.nextEntryId
     };
+
     data.nextEntryId++;
     data.entries.unshift(entry);
-
-    // $form.reset();
-    // $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
-
     var newEntry = renderEntry(entry);
     $ul.prepend(newEntry);
+
   } else {
     var edited = {
       title: $title.value,
@@ -142,7 +140,6 @@ function edit(e) {
   }
   entryformView();
 
-  // Populate entry form w/ clicked entry's values
   $heading.childNodes[0].nodeValue = 'Edit Entry';
   $title.value = data.editing.title;
   $photoURL.value = data.editing.photoURL;
