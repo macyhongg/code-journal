@@ -10,6 +10,8 @@ var $navMain = document.querySelector('.navMain');
 var $navEntries = document.querySelector('.navEntries');
 var $entryForm = document.getElementById('entry-form');
 var $entries = document.getElementById('entries');
+var $saveRow = document.getElementById('save-row');
+var $submitdiv = document.getElementById('submit-div');
 var $views = document.querySelectorAll('.view');
 
 // Updates the image from photoURL
@@ -59,6 +61,19 @@ function edit(e) {
   $notes.value = data.editing.notes;
 
   entryformView();
+
+  // Editing - create a delete link button
+  var deletediv = document.createElement('div');
+  deletediv.className = 'column-half delete-link';
+  var deleteEntry = document.createElement('p');
+  var deletetext = document.createTextNode('Delete Entry');
+  deleteEntry.appendChild(deletetext);
+  deletediv.appendChild(deleteEntry);
+  $saveRow.prepend(deletediv);
+  $saveRow.className = 'row align-items-center';
+
+  $submitdiv.removeAttribute('column-full align-right');
+  $submitdiv.className = 'column-half align-right';
 }
 
 // Render new or edited entry

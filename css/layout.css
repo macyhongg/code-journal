@@ -33,6 +33,10 @@
   align-self: center;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .full-width {
   width: 100%;
 }
