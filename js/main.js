@@ -13,6 +13,8 @@ var $entries = document.getElementById('entries');
 var $views = document.querySelectorAll('.view');
 var $deleteLink = document.querySelector('.delete-link');
 var $modal = document.querySelector('.modal-bg');
+var $cancel = document.querySelector('.cancel-button');
+// var $confirm = document.querySelector('.confirm-button');
 
 // Updates the image from photoURL
 $photoURL.addEventListener('change', function changeURL(event) {
@@ -147,9 +149,15 @@ function renderEntry(entry) {
 $navEntries.addEventListener('click', entriesView);
 $navMain.addEventListener('click', entryformView);
 $form.addEventListener('submit', logSubmit);
-$deleteLink.addEventListener('click', function (event) {
+
+$deleteLink.addEventListener('click', function () {
   $modal.className = 'modal-bg';
 });
+
+$cancel.addEventListener('click', function () {
+  $modal.className = 'modal-bg hidden';
+});
+
 document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     var newEntry = renderEntry(data.entries[i]);

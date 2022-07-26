@@ -67,17 +67,18 @@ a {
   margin-left: 14rem;
 }
 
-a:hover,
-h2:hover,
-button:hover,
-.pencil:hover {
-  cursor: pointer;
-}
-
 /* Delete Link */
 .delete-link {
   color: red;
   text-decoration: underline;
+}
+
+a:hover,
+h2:hover,
+button:hover,
+.pencil:hover,
+.delete-link:hover {
+  cursor: pointer;
 }
 
 /* Modal */
