@@ -1,15 +1,15 @@
-header {
+/* header {
   padding-left: 1rem;
-}
+} */
 
 body {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   background-color: #ecebec;
 }
 
-main {
+/* main {
   margin: 1.5rem;
-}
+} */
 
 button {
   background-color: #4c2373;
@@ -60,10 +60,6 @@ a {
   text-decoration: none;
 }
 
-h2:hover {
-  cursor: pointer;
-}
-
 /* Editing */
 .pencil {
   font-size: 24px;
@@ -71,8 +67,45 @@ h2:hover {
   margin-left: 14rem;
 }
 
+a:hover,
+h2:hover,
+button:hover,
+.pencil:hover {
+  cursor: pointer;
+}
+
 /* Delete Link */
 .delete-link {
   color: red;
   text-decoration: underline;
+}
+
+/* Modal */
+.modal-bg {
+  /* display: none; */
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pop-up {
+  background-color: white;
+  margin: 15% auto;
+  width: 50%;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 30%;
+}
+
+.cancel-button {
+  background-color: rgb(186, 185, 185);
+  color: black;
+}
+
+.confirm-button {
+  background-color: red;
 }

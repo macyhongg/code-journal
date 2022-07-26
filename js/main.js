@@ -10,9 +10,9 @@ var $navMain = document.querySelector('.navMain');
 var $navEntries = document.querySelector('.navEntries');
 var $entryForm = document.getElementById('entry-form');
 var $entries = document.getElementById('entries');
-var $saveRow = document.getElementById('save-row');
-var $submitdiv = document.getElementById('submit-div');
 var $views = document.querySelectorAll('.view');
+var $deleteLink = document.querySelector('.delete-link');
+var $modal = document.querySelector('.modal-bg');
 
 // Updates the image from photoURL
 $photoURL.addEventListener('change', function changeURL(event) {
@@ -48,6 +48,7 @@ $ul.addEventListener('click', edit);
 function edit(e) {
   var targetid = e.target.getAttribute('data-entry-id');
   if (e.target.nodeName === 'I') {
+
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === parseInt(targetid)) {
         data.editing = data.entries[i];
@@ -61,19 +62,7 @@ function edit(e) {
   $notes.value = data.editing.notes;
 
   entryformView();
-
-  // Editing - create a delete link button
-  var deletediv = document.createElement('div');
-  deletediv.className = 'column-half delete-link';
-  var deleteEntry = document.createElement('p');
-  var deletetext = document.createTextNode('Delete Entry');
-  deleteEntry.appendChild(deletetext);
-  deletediv.appendChild(deleteEntry);
-  $saveRow.prepend(deletediv);
-  $saveRow.className = 'row align-items-center';
-
-  $submitdiv.removeAttribute('column-full align-right');
-  $submitdiv.className = 'column-half align-right';
+  $deleteLink.className = 'delete-link';
 }
 
 // Render new or edited entry
@@ -158,6 +147,9 @@ function renderEntry(entry) {
 $navEntries.addEventListener('click', entriesView);
 $navMain.addEventListener('click', entryformView);
 $form.addEventListener('submit', logSubmit);
+$deleteLink.addEventListener('click', function (event) {
+  $modal.className = 'modal-bg';
+});
 document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     var newEntry = renderEntry(data.entries[i]);
