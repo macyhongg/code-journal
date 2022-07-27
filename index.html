@@ -17,12 +17,13 @@
 </head>
 <body>
   <header class="row purple-bg">
-    <div class="column-full">
+    <div class="column-full margin-left">
       <h2 class="navMain white-text inline-block margin-right">Code Journal</h2>
       <a href="#entries" class="navEntries white-text inline-block margin-right"><h3>Entries</h3></a>
     </div>
   </header>
-  <main>
+  <main class="margins">
+    <!-- New Entry -->
     <div data-view="entry-form" class="view" id="entry-form">
       <div class="row">
         <div class="column-full">
@@ -53,15 +54,18 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="column-full align-right">
+        <div class="row" id="save-row">
+          <div class="column-half">
+            <span class="delete-link hidden">Delete Entry</span>
+          </div>
+          <div class="column-half align-right" id="submit-div">
             <button type="submit" value="Submit" id="submit">Save</button>
           </div>
         </div>
       </form>
     </div>
 
-    <!-- Entries  -->
+    <!-- View Entries  -->
     <div data-view="entries" id="entries" class="view hidden">
       <div class="container">
         <div class="row">
@@ -74,6 +78,22 @@
       </div>
     </div>
   </main>
+
+  <!-- Modal -->
+  <section class="modal-bg hidden">
+    <div class="pop-up">
+      <div class="container">
+        <div>
+          <p class="center-text">Are you sure you want to delete this entry?</p>
+        </div>
+        <div class="space-between">
+          <button class="cancel-button">Cancel</button>
+          <button class="confirm-button">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

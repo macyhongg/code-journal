@@ -33,8 +33,20 @@
   align-self: center;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .full-width {
   width: 100%;
+}
+
+.margins {
+  margin: 1.5rem;
+}
+
+.margin-left {
+  margin-left: 1.5rem;
 }
 
 .margin-bottom {
@@ -49,9 +61,14 @@
   display: inline-block;
 }
 
-/* .space-between {
+.center-text {
+  text-align: center;
+}
+
+.space-between {
+  display: flex;
   justify-content: space-between;
-} */
+}
 
 /* Responsive layout  */
 
@@ -67,9 +84,5 @@
 
   .column-half {
     width: 50%;
-  }
-
-  .margin-left {
-    margin-left: 1 rem;
   }
 }

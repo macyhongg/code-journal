@@ -11,6 +11,10 @@ var $navEntries = document.querySelector('.navEntries');
 var $entryForm = document.getElementById('entry-form');
 var $entries = document.getElementById('entries');
 var $views = document.querySelectorAll('.view');
+var $deleteLink = document.querySelector('.delete-link');
+var $modal = document.querySelector('.modal-bg');
+var $cancel = document.querySelector('.cancel-button');
+var $confirm = document.querySelector('.confirm-button');
 
 // Updates the image from photoURL
 $photoURL.addEventListener('change', function changeURL(event) {
@@ -57,11 +61,11 @@ function edit(e) {
   $photoURL.value = data.editing.photoURL;
   $photosrc.setAttribute('src', data.editing.photoURL);
   $notes.value = data.editing.notes;
-
   entryformView();
+  $deleteLink.className = 'delete-link';
 }
 
-// Render new or edited entry
+// Creates or updates entry when Submit button is pressed
 function logSubmit(event) {
   event.preventDefault();
   if (data.editing === null) {
@@ -71,12 +75,10 @@ function logSubmit(event) {
       notes: $form.elements.notes.value,
       entryId: data.nextEntryId
     };
-
     data.nextEntryId++;
     data.entries.unshift(entry);
     var newEntry = renderEntry(entry);
     $ul.prepend(newEntry);
-
   } else {
     var edited = {
       title: $title.value,
@@ -84,7 +86,6 @@ function logSubmit(event) {
       notes: $notes.value,
       entryId: data.editing.entryId
     };
-
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === parseInt(data.editing.entryId)) {
         data.entries[i] = edited;
@@ -97,6 +98,7 @@ function logSubmit(event) {
   $form.reset();
   $photosrc.setAttribute('src', 'images/placeholder-image-square.jpg');
   entriesView();
+  data.editing = null;
 }
 
 // Take single entry and return a DOM tree
@@ -143,10 +145,30 @@ function renderEntry(entry) {
 $navEntries.addEventListener('click', entriesView);
 $navMain.addEventListener('click', entryformView);
 $form.addEventListener('submit', logSubmit);
+
 document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     var newEntry = renderEntry(data.entries[i]);
     $ul.appendChild(newEntry);
   }
   showView(data.view);
+});
+
+$deleteLink.addEventListener('click', function () {
+  $modal.className = 'modal-bg';
+});
+
+$cancel.addEventListener('click', function () {
+  $modal.className = 'modal-bg hidden';
+});
+
+$confirm.addEventListener('click', function () {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === parseInt(data.editing.entryId)) {
+      $ul.removeChild($ul.children[i]);
+      data.entries.splice(i, 1);
+      entriesView();
+      $modal.className = 'modal-bg hidden';
+    }
+  }
 });
